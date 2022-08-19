@@ -2,9 +2,10 @@
 
 ![hello](invader-gh-banner.png)
 
-A web-based recreation of the 1978 Arcade Classic *Space Invaders*.
+A web-based recreation of the 1978 Arcade Classic *Space Invaders*.  
+_NOTE: This is a fork of a group project that I worked on as a part of Code Fellows' Code 201 course!_
 
-## Notes
+### [Live Site](http://shepleysound.com/space-invaders/)
 
 ## Contributors
 
