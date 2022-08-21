@@ -1,43 +1,44 @@
 'use strict';
 
-function Bullet() {
-  this.element = createBulletCanvas(player);
-  this.collider = new Collider(this.element);
-  this.animationStart;
+class Bullet {
+  constructor() {
+    this.element = Bullet.create(player);
+    this.collider = new Collider(this.element);
+    this.animationStart;
+  
+    Bullet.instances.push(this);
+  }
 
-  Bullet.instances.push(this);
-}
-
-Bullet.instances = [];
-
-Bullet.prototype.removeBullet = function() {
-  for (let i = 0; i < Bullet.instances.length; i++) {
-    const checkBullet = Bullet.instances[i];
-    if (this.element === checkBullet.element) {
-      this.collider.deleteCollider();
-      this.element.remove();
-      Bullet.instances.splice(i, 1);
+  removeBullet() {
+    for (let i = 0; i < Bullet.instances.length; i++) {
+      const checkBullet = Bullet.instances[i];
+      if (this.element === checkBullet.element) {
+        this.collider.deleteCollider();
+        this.element.remove();
+        Bullet.instances.splice(i, 1);
+      }
     }
   }
-};
+  
+  static create(ship) {
+    const canvas = document.createElement('canvas');
+    canvas.classList.add('bullet');
+    canvas.width = '5';
+    canvas.height = '10';
+    canvas.style.position = 'absolute';
+    canvas.style.bottom = '40px';
+    canvas.style.left = `${getShipCenter(ship)}px`;
+    
+    const bulletCtx = canvas.getContext('2d');
+    bulletCtx.fillStyle = '#cccccc';
+    bulletCtx.fillRect(0, 0, 3, 6);
+    
+    gameScreen.element.append(canvas);
+    return canvas;
+  }
 
-function createBulletCanvas(ship){
-  const canvas = document.createElement('canvas');
-  canvas.classList.add('bullet');
-  canvas.width = '5';
-  canvas.height = '10';
-  canvas.style.position = 'absolute';
-  canvas.style.bottom = '40px';
-  canvas.style.left = `${getShipCenter(ship)}px`;
-
-  const bulletCtx = canvas.getContext('2d');
-  bulletCtx.fillStyle = '#cccccc';
-  bulletCtx.fillRect(0, 0, 3, 6);
-
-  gameScreen.element.append(canvas);
-  return canvas;
+  static instances = [];
 }
-
 
 function getShipCenter(ship) {
   const shipRect = ship.element.getBoundingClientRect();
