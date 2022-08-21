@@ -1,52 +1,53 @@
 'use strict';
 
-function Score(initials, score) {
-  this.initials = initials;
-  this.score = score;
-  if (Score.instances.length < 10) {
-    Score.instances.push(this);
-  } else if (score > Score.instances.at(-1).score) {
-    Score.instances.pop();
-    Score.instances.push(this);
+class Score {
+  constructor(initials, score) {
+    this.initials = initials;
+    this.score = score;
+    if (Score.instances.length < 10) {
+      Score.instances.push(this);
+    } else if (score > Score.instances.at(-1).score) {
+      Score.instances.pop();
+      Score.instances.push(this);
+    }
+    Score.sortScores();
   }
-  sortScores();
-}
 
-Score.instances = [];
+  static instances = [];
 
+  static loadScores() {
+    let parsedStorage = JSON.parse(localStorage.getItem('scores')) || [];
+    if (!parsedStorage.length){
+      defaultScores();
+      Score.saveScores();
+      parsedStorage = JSON.parse(localStorage.getItem('scores'));
+    }
+    Score.instances = [];
+    for (let i = 0; i < parsedStorage.length; i++) {
+      new Score(parsedStorage[i].initials, parsedStorage[i].score);
+    }
+  };
 
-Score.loadScores = function() {
-  let parsedStorage = JSON.parse(localStorage.getItem('scores')) || [];
-  if (!parsedStorage.length){
-    defaultScores();
+  static saveScores() {
+    localStorage.setItem('scores', JSON.stringify(Score.instances));
+  }
+
+  static clearScores() {
+    Score.instances = [];
     Score.saveScores();
-    parsedStorage = JSON.parse(localStorage.getItem('scores'));
   }
-  Score.instances = [];
-  for (let i = 0; i < parsedStorage.length; i++) {
-    new Score(parsedStorage[i].initials, parsedStorage[i].score);
+
+  static sortScores() {
+    Score.instances.sort((a, b) => {
+      if (a.score > b.score) {
+        return -1;
+      }
+      if (a.score < b.score) {
+        return 1;
+      }
+      return 0;
+    });
   }
-};
-
-Score.saveScores = function() {
-  localStorage.setItem('scores', JSON.stringify(Score.instances));
-};
-
-Score.clearScores = function() {
-  Score.instances = [];
-  Score.saveScores();
-};
-
-function sortScores() {
-  Score.instances.sort((a, b) => {
-    if (a.score > b.score) {
-      return -1;
-    }
-    if (a.score < b.score) {
-      return 1;
-    }
-    return 0;
-  });
 }
 
 function defaultScores() {
@@ -62,7 +63,6 @@ function defaultScores() {
   new Score('AXC', 100);
 }
 
-// eslint-disable-next-line no-unused-vars
 function incrementScore(invader) {
   gameState.score += invader.pointsValue;
   updateBannerScores();
