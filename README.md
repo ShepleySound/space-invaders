@@ -1,20 +1,23 @@
 # Space Invaders
 
+## [Live Site](http://shepleysound.com/space-invaders/)
+
 ![hello](invader-gh-banner.png)
 
-A web-based recreation of the 1978 Arcade Classic *Space Invaders*.  
-_NOTE: This is a fork of a group project that I worked on as a part of Code Fellows' Code 201 course!_
+A web-based recreation of the 1978 Arcade Classic *Space Invaders*. Built using plain HTML, CSS, and JavaScript
 
-### [Live Site](http://shepleysound.com/space-invaders/)
+## Overview
 
-## Contributors
+### **Author**: Robert Shepley
 
-- [Daniel Shiraishi](https://github.com/KaliFox20)
-- [Robert Shepley](https://github.com/ShepleySound)
-- [Timothee Odushina](https://github.com/timothee2022)
-- [Alan Chelko](https://github.com/dtuskippy)
+### **Version**: 1.0.0
 
-## Domain Model, Object Constructors
+## Architecture / Description
+
+The game runs fully in the browser and uses localStorage to keep track of high scores, so there is no connection to an external back-end server or database.  
+There are no 3rd party libraries or packages used. Features such as collision, animations, and user controls are implemented using built-in JavaScript methods and several Web API's. For example, animation and frame-by-frame logic checks are performed with help from [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame), which allows us to easily tell the browser that we would like to perform actions before browser repaints. [Canvas Elements](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) are heavily used to draw elements to the screen.
+
+### Class/Domain Model
 
 ```mermaid
 classDiagram
@@ -57,3 +60,15 @@ classDiagram
   Collider : checkCollisions()
 
 ```
+
+## Contributors
+
+Thanks to the original team for assisting in crafting the original vision for this project!
+
+### [Robert Shepley :wave:](https://github.com/ShepleySound)
+
+### [Daniel Shiraishi](https://github.com/KaliFox20)
+
+### [Timothee Odushina](https://github.com/timothee2022)
+
+### [Alan Chelko](https://github.com/dtuskippy)

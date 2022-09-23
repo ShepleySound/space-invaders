@@ -12,6 +12,4 @@
 - Track player lives.
 - Get scores by destroying enemies.
 - Use window.requestAnimationFrame() to loop through animation frames.
-
-
-Game happens in a large `<canvas>`. Each object on the screen is its own individual `<canvas>`.
+- Game happens in a large `<canvas>`. Each object on the screen is its own individual `<canvas>`.
